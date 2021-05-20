@@ -10,7 +10,7 @@ import {
 import '../sass/main.scss';
 
 const MAPS_CONFIG = {
-    center: [59.928305, 30.320457],
+    center: [59.928305, 30.320451],
     zoom: 14,
     controls: ['geolocationControl','zoomControl'],
 };
@@ -18,7 +18,7 @@ const MAPS_CONFIG = {
 const init = () => {
     const yaMap = new ymaps.Map('ymaps', MAPS_CONFIG);
     const yaClusterer = createClusterer(yaMap);
-    const reviewsForm = document.querySelector('.reviews__form');
+    const reviewsForm = document.querySelector('.hiddenRev__form');
 
     reviewsForm.map = yaMap;
     reviewsForm.clusterer = yaClusterer;
@@ -70,7 +70,7 @@ const init = () => {
             }
         });
 
-    document.querySelector('.reviews__close').addEventListener('click', hidePopup);
+    document.querySelector('.hiddenRev__close').addEventListener('click', hidePopup);
     
     
 };

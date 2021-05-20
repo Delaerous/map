@@ -1,4 +1,4 @@
-const path = require('path');
+/*const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -35,8 +35,46 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
+            filename: 'index.hbs',
+            template: './src/index.hbs',
+        }),
+        new MiniCssExtractPlugin({
+            filename: '[name].css',
+        }),
+    ],
+};*/
+
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+module.exports = {
+    entry: './src/js/main.js',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'main.js',
+    },
+    mode: process.env.NODE_ENV ? process.env.NODE_ENV : 'development',
+    module: {
+        rules: [
+            { test: /\.hbs$/, loader: 'handlebars-loader' },
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    process.env.NODE_ENV !== 'production' ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'sass-loader',
+                ],
+            },
+        ],
+    },
+    devServer: {
+        open: true,
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: './src/index.html',
+            template: './src/index.hbs',
         }),
         new MiniCssExtractPlugin({
             filename: '[name].css',

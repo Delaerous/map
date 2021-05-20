@@ -2,9 +2,9 @@ import makeBalloonTemplate from '../../views/makeBalloonTemplate.hbs';
 import reviewTemplate from '../../views/reviewTemplate.hbs';
 
 const reviews = document.querySelector('#reviews');
-const reviewsForm = document.querySelector('.reviews__form');
-const title = reviews.querySelector('.reviews__header');
-const reviewsContent = document.querySelector('.reviews__content');
+const reviewsForm = document.querySelector('.hiddenRev__form');
+const title = reviews.querySelector('.hiddenRev__header');
+const reviewsContent = document.querySelector('.hiddenRev__content');
 
 
 export function addMarkerToMap(map, clusterer, reviewData) {
@@ -32,15 +32,15 @@ export function addMarkerToMap(map, clusterer, reviewData) {
 function clearPopup() {
     title.childNodes[0].textContent = '-';
     reviewsContent.innerText = '';
-    document.querySelector('.reviews__form input[name="name"]').value = '';
-    document.querySelector('.reviews__form input[name="place"]').value = '';
-    document.querySelector('.reviews__form textarea').value = '';
+    document.querySelector('.hiddenRev__form input[name="name"]').value = '';
+    document.querySelector('.hiddenRev__form input[name="place"]').value = '';
+    document.querySelector('.hiddenRev__form textarea').value = '';
 }
 
 export function showEmptyReviewForm(point, address = '') {
     clearPopup();
     title.childNodes[0].textContent = address;
-    reviews.classList.remove('hidden');
+    reviews.classList.remove('hiddenRev');
     reviewsForm.point = point;
 }
 
@@ -64,7 +64,7 @@ function showPopupWithReviews(point) {
     innerHTML = innerHTML + '</ul>';
 
     reviewsContent.innerHTML = innerHTML;
-    reviews.classList.remove('hidden');
+    reviews.classList.remove('hiddenRev');
     reviewsForm.point = point;
 }
 
@@ -118,10 +118,10 @@ export function submitHandler(e) {
 
     let reviewData = {
         point: this.point,
-        name: document.querySelector('.reviews__form input[name="name"]').value.trim(),
-        place: document.querySelector('.reviews__form input[name="place"]').value.trim(),
-        comment: document.querySelector('.reviews__form textarea[name="comment"]').value.trim(),
-        address: document.querySelector('.reviews__header').childNodes[0].textContent.trim(),
+        name: document.querySelector('.hiddenRev__form input[name="name"]').value.trim(),
+        place: document.querySelector('.hiddenRev__form input[name="place"]').value.trim(),
+        comment: document.querySelector('.hiddenRev__form textarea[name="comment"]').value.trim(),
+        address: document.querySelector('.hiddenRev__form').childNodes[0].textContent.trim(),
         dateTime: unixToDateStr(Date.now()),
     };
 
@@ -151,6 +151,6 @@ export function loadDataFromStorage() {
 }
 export function hidePopup() {
 
-    reviews.classList.add('hidden');
+    reviews.classList.add('hiddenRev');
     
 }
