@@ -57,19 +57,20 @@ div {
     text-align: center;
     cursor: pointer;
 
-    &-plank {
-        display: block;
-        background: black;
-        border-radius: 10px;
-        transition: all 0.2s;
-        transform: rotate(45deg) translate(10px, 0px);
 
-        &:nth-child(2) {
-            transform: rotate(-45deg) translate(0px, 10px);
-        }
-    }
 }
 
+.hiddenRev__close-plank {
+    display: block;
+    background: black;
+    border-radius: 10px;
+    transition: all 0.2s;
+    transform: rotate(45deg) translate(10px, 0px);
+
+    &:nth-child(2) {
+        transform: rotate(-45deg) translate(0px, 10px);
+    }
+}
 
 
 
