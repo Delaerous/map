@@ -73,6 +73,7 @@ const init = () => {
     document.querySelector('.hiddenRev__close').addEventListener('click', hidePopup);
     
     
+    
 };
 
 ymaps.ready(init);

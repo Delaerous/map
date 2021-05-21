@@ -9,6 +9,7 @@ const reviewsContent = document.querySelector('.hiddenRev__content');
 
 export function addMarkerToMap(map, clusterer, reviewData) {
     const marker = new ymaps.Placemark(reviewData.point, {
+        openBalloonOnClick: false,
         balloonContentPlace: reviewData.place,
         balloonContentComment: reviewData.comment,
         balloonContentName: reviewData.name,
@@ -85,11 +86,14 @@ export function createClusterer(map) {
     const customClusterBalloonContent = ymaps.templateLayoutFactory.createClass(makeBalloonTemplate('$[(properties)]'));
 
     const clusterer = new ymaps.Clusterer({
+        openBalloonOnClick: true,
         clusterDisableClickZoom: true,
         clusterBalloonContentLayout: 'cluster#balloonCarousel',
         clusterBalloonItemContentLayout: customClusterBalloonContent,
+        clusterBalloonPanelMaxMapArea: 0,
         clusterBalloonContentLayoutWidth: 353,
         clusterBalloonContentLayoutHeight: 200,
+        clusterBalloonPagerSize: 10
         
     });
 
@@ -121,7 +125,7 @@ export function submitHandler(e) {
         name: document.querySelector('.hiddenRev__form input[name="name"]').value.trim(),
         place: document.querySelector('.hiddenRev__form input[name="place"]').value.trim(),
         comment: document.querySelector('.hiddenRev__form textarea[name="comment"]').value.trim(),
-        address: document.querySelector('.hiddenRev__form').childNodes[0].textContent.trim(),
+        address: document.querySelector('.hiddenRev__header').childNodes[0].textContent.trim(),
         dateTime: unixToDateStr(Date.now()),
     };
 
@@ -129,10 +133,10 @@ export function submitHandler(e) {
         alert('Нет данных');
         return;
     }
-
     addMarkerToMap(this.map, this.clusterer, reviewData);
     addDataToStorage(reviewData);
     showPopupWithReviews(this.point);
+    reviews.classList.add('hiddenRev');
 }
 
 function addDataToStorage(newData) {
